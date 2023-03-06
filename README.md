@@ -1,72 +1,43 @@
-# UOCIS322 - Project 6 #
-Brevet time calculator with MongoDB, and a RESTful API!
+# UO CS322 - Project 5 #
 
-Read about MongoEngine and Flask-RESTful before you start: [http://docs.mongoengine.org/](http://docs.mongoengine.org/), [https://flask-restful.readthedocs.io/en/latest/](https://flask-restful.readthedocs.io/en/latest/).
+Abie Safdie
 
-## Before you begin
-You *HAVE TO* copy `.env-example` into `.env` and specify your container port numbers there!
-Note that the default values (5000 and 5000) will work!
 
-*DO NOT PLACE LOCAL PORTS IN YOUR COMPOSE FILE!*
+asafdie11@gmail.com
 
-## Overview
 
-You will reuse your code from Project 5, which already has two services:
+# Description of Project
 
-* Brevets
-	* The entire web service
-* MongoDB
+This project utlizes an AJAX interaction to create a brevet calculator without needing a page reload.
 
-For this project, you will re-organize `Brevets` into two separate services:
 
-* Web (Front-end)
-	* Time calculator (basically everything you had in project 4)
-* API (Back-end)
-	* A RESTful service to expose/store structured data in MongoDB.
+The algorithm used to calcualte the times can be found at: https://rusa.org/pages/acp-brevet-control-times-calculator
 
-## Tasks
 
-* Implement a RESTful API in `api/`:
-	* Write a data schema using MongoEngine for Checkpoints and Brevets:
-		* `Checkpoint`:
-			* `distance`: float, required, (checkpoint distance in kilometers), 
-			* `location`: string, optional, (checkpoint location name), 
-			* `open_time`: datetime, required, (checkpoint opening time), 
-			* `close_time`: datetime, required, (checkpoint closing time).
-		* `Brevet`:
-			* `length`: float, required, (brevet distance in kilometers),
-			* `start_time`: datetime, required, (brevet start time),
-			* `checkpoints`: list of `Checkpoint`s, required, (checkpoints).
-	* Using the schema, build a RESTful API with the resource `/brevets/`:
-		* GET `http://API:PORT/api/brevets` should display all brevets stored in the database.
-		* GET `http://API:PORT/api/brevet/ID` should display brevet with id `ID`.
-		* POST `http://API:PORT/api/brevets` should insert brevet object in request into the database.
-		* DELETE `http://API:PORT/api/brevet/ID` should delete brevet with id `ID`.
-		* PUT `http://API:PORT/api/brevet/ID` should update brevet with id `ID` with object in request.
+This project required a reverse-engineering of the algorithm, which is what is implemented in `acp_times.py`
 
-* Copy over `brevets/` from your completed project 5.
-	* Replace every database related code in `brevets/` with calls to the new API.
-		* Remember: AutoGrader will ensure there is NO CONNECTION between `brevets` and `db` services. `brevets` should only operate through `api` and still function the way it did in project 5.
-		* Hint: Submit should send a POST request to the API to insert, Display should send a GET request, and display the last entry.
-	* Remove `config.py` and adjust `flask_brevets.py` to use the `PORT` and `DEBUG` values specified in env variables (see `docker-compose.yml`).
 
-* Update README.md with API documentation added.
+Project 5 Updates:
 
-As always you'll turn in your `credentials.ini` through Canvas.
 
-## Grading Rubric
+The front-end now features 'Submit' and 'Display' buttons that are described in the Notes on Webpage section.
 
-* If your code works as expected: 100 points. This includes:
-    * API routes as outlined above function exactly the way expected,
-    * Web application works as expected in project 5,
-    * README is updated with the necessary details.
 
-* If the front-end service does not work, 20 points will be docked.
+Project 6 Updates:
 
-* For each of the 5 requests that do not work, 15 points will be docked.
+There is now an api component, which handles the communication to mongo to store the data in the database. The submit and display buttons work through the RESTful Api. 
 
-* If none of the above work, 5 points will be assigned assuming project builds and runs, and `README` is updated. Otherwise, 0 will be assigned.
+The program also now handles get, post, delete, and put requests to change the data in the database. 
 
-## Authors
+The ports are now read through the .env file
 
-Michal Young, Ram Durairajan. Updated by Ali Hassani.
+
+
+# Notes on Webpage
+
+The user can input a distance, start time, and checkpoints and have the correct opening and closing times associated with each checkpoint be displayed without a page reload. The displayed times follow the rules goverened by RUSA. 
+
+Additionally, there is a 'submit' and 'display' button for the user. When a user inputs valid distances they may submit their brevet to the database. The most recently submitted valid brevet can be re-displayed upon the clicking of the 'display' button.
+
+
+
