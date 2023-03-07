@@ -39,7 +39,7 @@ def brevet_display():
     lists = requests.get(f"{API_URL}/brevets").json()
 
     brevet = lists[-1]
-
+    # retrieve from database
     return brevet["start_time"], brevet["brevet_dist"], brevet["controls"]
 
 

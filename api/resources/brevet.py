@@ -11,18 +11,20 @@ from database.models import Brevet, Control
 
 class BrevetApi(Resource):
     def get(self, _id):
+        # Get the brevet from the id
         json_object = Brevet.objects.get(id=_id).to_json()
         return Response(json_object, mimetype="application/json", status=200)
 
     def put(self, _id):
-        brevet = Brevet.objects.get(id=_id).to_json()
+        # Update a brevet from the database
+        input_json = request.json
 
-        brevet.update(start_time = brevet["start_time"],
-                      brevet_dist = brevet["brevet_dist"],
-                      controls = brevet["controls"])
+        Brevet.objects.get(id=_id).update(**input_json)
 
-        return {'id': str(_id), 'status': 'updated'}, 200
+        return '', 200
 
     def delete(self, _id):
+        # Delete brevet from database
         Brevet.objects.get(id=_id).delete()
-        return {'_id': str(_id)}, 200
+        return '', 200
+

@@ -5,10 +5,11 @@ import datetime
 class Control(EmbeddedDocument):
     """
     A MongoEngine EmbeddedDocument containing:
-        distance: MongoEngine float field, required, (control distance in kilometers),
+        miles:  MongoEngine float field., not required
+        km: MongoEngine float field, required, (control distance in kilometers),
 		location: MongoEngine string field, optional, (control location name),
-		open_time: MongoEngine string field, required, (control opening time),
-		close_time: MongoEngine string field, required, (control closing time).
+		open: MongoEngine string field, required, (control opening time),
+		close: MongoEngine string field, required, (control closing time).
     """
     miles = FloatField(required=False)
     km = FloatField(required=True)

@@ -10,15 +10,14 @@ from database.models import Brevet, Control
 
 class BrevetsApi(Resource):
     def get(self):
-        json_object = Brevet.objects().to_json()
+        # get the brevet
+        json_object = Brevet.objects().to_json()  # converts to json
         return Response(json_object, mimetype="application/json", status=200)
 
     def post(self):
-        input_json = request.get_json()
-        start_time = input_json["start_time"]
-        brevet_dist = input_json["brevet_dist"]
-        controls = input_json["controls"]
+        # Put into database and return the id
+        input_json = request.json
 
-        Brevet(start_time=start_time, brevet_dist=brevet_dist, controls=controls).save()
+        result = Brevet(**input_json).save()
 
-        return {'_id': ""}, 200
+        return {'_id': str(result.id)}, 200
